@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-slow: 1s;
+    --dur-base: 0.65s;
+    --dur-fast: 0.22s;
+    --stagger: 0.1s;
+  }
+
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-element {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .carousel-track {
+    scroll-behavior: auto !important;
+  }
+
+  .motion-hover-lift {
+    transform: none !important;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: #0a0a0a;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transform: translateY(-100%);
+  transition: transform var(--dur-fast) var(--ease-out-expo);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.reveal-element {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--dur-base) var(--ease-out-expo),
+    transform var(--dur-base) var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-spotlight {
+  background: radial-gradient(
+    circle at 30% 50%,
+    rgba(255, 200, 150, 0.12) 0%,
+    transparent 60%
+  );
+}
+
+.hero-vignette {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.35) 42%,
+    transparent 72%
+  );
+}
+
+.hero-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
+
+@media (max-width: 1023px) {
+  .carousel-edge-fade {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+  }
+}
